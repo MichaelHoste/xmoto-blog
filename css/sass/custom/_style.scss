@@ -4,7 +4,7 @@ Contents
 ================================
 
 1. Shared Styles
-	a. Fonts
+    a. Fonts
     b. Extends
 2. Header Section
 3. Entries
@@ -24,7 +24,7 @@ body{
 }
 
 main.container, main.content > .container{
-    width:50em;
+    width:36em;
 }
 
 // 1. a Font
@@ -32,10 +32,11 @@ main.container, main.content > .container{
 
 
 @font-face {
-  font-family: 'Noto Serif';
+  font-family: 'PT Serif';
+  //src: local('Noto Serif'), local('NotoSerif'), url(http://themes.googleusercontent.com/static/fonts/notoserif/v1/eCpfeMZI7q4jLksXVRWPQxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+  //font-family: 'Noto Serif';
   font-style: normal;
   font-weight: 400;
-  src: local('Noto Serif'), local('NotoSerif'), url(http://themes.googleusercontent.com/static/fonts/notoserif/v1/eCpfeMZI7q4jLksXVRWPQxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
 }
 
 
@@ -56,7 +57,7 @@ main.container, main.content > .container{
             color: $grayDark;
             text-decoration:none;
             @include opacity(50);
-        }    
+        }
 }
 
 // 2. Header Section
@@ -66,14 +67,14 @@ main.container, main.content > .container{
     background-color: $white;
 
     & > .container{
-       min-height: 58em;  
+       min-height: 58em;
     }
 }
 
 .content h1{
     font-family: Georgia, "Times New Roman", Times, serif;
      @extend .center-txt;
-    font-size: 6em;  
+    font-size: 4em;
     margin-top: 1em;
     border-bottom: 1px solid $grayDarker;
     padding-bottom: 0.6em;
@@ -82,7 +83,9 @@ main.container, main.content > .container{
 
 .top-strip{
     background-color: $black;
-    height: 1em;    
+    //background-image: url('/img/header.png');
+    //background-repeat: no-repeat;
+    height: 1em;
 }
 
 
@@ -90,14 +93,14 @@ main.container, main.content > .container{
 // --------------------------------------------------
 
 .entries{
-     @extend .center-txt;
+    // @extend .center-txt;
     list-style: none;
-    font-family: 'Noto Serif';
+    font-family: 'PT Serif';
     margin:2em 0 0;
 
     li{
         //border-bottom: 1px solid $grayLighter;
-        margin-bottom: 3em;
+        //margin-bottom: 3em;
         padding-top: 1.5em;
     }
 
@@ -130,7 +133,7 @@ main.container, main.content > .container{
 
 .pages{
      @extend .center-txt;
-    list-style: none;    
+    list-style: none;
 }
 
 .next{
@@ -139,7 +142,7 @@ main.container, main.content > .container{
 }
 
 .prev{
-    float: left;   
+    float: left;
 }
 
 #post-pagination{
@@ -155,8 +158,8 @@ main.container, main.content > .container{
      font-size: 2.5em;
      margin: 1.5em 0 -1.1em;
      a{
-        @extend .a-hover; 
-     } 
+        @extend .a-hover;
+     }
 }
 
 .post{
@@ -172,14 +175,15 @@ main.container, main.content > .container{
     h2{
         font-family: Georgia, 'Times New Roman', Times, serif;
         @extend .center-txt;
-        font-size: 5em;
+        font-size: 3em;
         padding: 1.5em 0 0.5em;
         letter-spacing: 0.05em;
     }
 
     section{
-        font-family: 'Noto Serif';
+        font-family: 'PT Serif';
         line-height: 1.9em;
+        text-align: justify;
     }
 }
 
@@ -195,5 +199,5 @@ footer .container{
     a{
         color: $white;
         text-decoration: underline;
-    }    
+    }
 }

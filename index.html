@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mainpage
+title: XMoto - Reborn
 ---
 <!-- Content
     ================================================== -->
@@ -9,15 +9,24 @@ title: Mainpage
     <main class="container">
     	<div class="row-fluid">
     		<section class="content">
-    		  <h1>Ipsum List</h1>
+    		  <h1>XMoto - Reborn</h1>
     		</section>
+
+        <div>
+          Hi, I'm Michaël Hoste, a Ruby on Rails & CoffeeScript developper from <a href="http://80limit.com">80LIMIT</a>, a Belgium-based company.
+
+          I like to create games on my spare time, so I decided to write this blog about the development, from scratch, of a HTML5 version of <a href="http://xmoto.tuxfamily.org/">XMoto</a>.
+        </div>
+
     		<ul class="entries">
-    		{% for post in paginator.posts %}
+    		{% for post in paginator.posts reversed %}
     		  <li>
     		    <a href="{{ post.url }}">
                       <span>{{ post.date | date: "%d %B %Y" }}</span>
     		        <h3>{{ post.title }}</h3>
-                      <div>{{ post.content |truncatehtml | truncatewords: 30 }}</div>
+                <!--
+                <div>{{ post.content | truncatehtml | truncatewords: 30 }}</div>
+                !-->
     		    </a>
     		  </li>
     		{% endfor %}
