@@ -64,7 +64,7 @@ main.container, main.content > .container{
 // --------------------------------------------------
 
 .content{
-    background-color: $white;
+    background: url('/img/wallpaper.png');
 
     & > .container{
        min-height: 58em;
@@ -184,6 +184,12 @@ main.container, main.content > .container{
         font-family: 'PT Serif';
         line-height: 1.9em;
         text-align: justify;
+    }
+
+    img{
+        display:block;
+        margin:auto;
+        max-height:400px;
     }
 }
 
