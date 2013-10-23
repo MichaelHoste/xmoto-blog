@@ -15,14 +15,14 @@ title: XMoto
         <div>
           Hi, I'm Michaël Hoste, a Ruby on Rails & CoffeeScript developper from <a href="http://80limit.com">80LIMIT</a>, a Belgium-based company.
 
-          I like to create games on my spare time, so I decided to write this blog about the development, from scratch, of a HTML5 version of <a href="http://xmoto.tuxfamily.org/">XMoto</a>.
+          I like to create games on my spare time, so I decided to write this blog about the development, step by step, of a HTML5 version of <a href="http://xmoto.tuxfamily.org/">XMoto</a>.
         </div>
 
     		<ul class="entries">
     		{% for post in paginator.posts reversed %}
     		  <li>
     		    <a href="{{ post.url }}">
-                      <span>{{ post.date | date: "%d %B %Y" }}</span>
+                      <span style="display:none">{{ post.date | date: "%d %B %Y" }}</span>
     		        <h3>{{ post.title }}</h3>
                 <!--
                 <div>{{ post.content | truncatehtml | truncatewords: 30 }}</div>

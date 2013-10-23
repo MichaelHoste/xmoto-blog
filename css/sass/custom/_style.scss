@@ -101,7 +101,7 @@ main.container, main.content > .container{
     li{
         //border-bottom: 1px solid $grayLighter;
         //margin-bottom: 3em;
-        padding-top: 1.5em;
+        padding-top: 0.5em;
     }
 
     span{
@@ -189,6 +189,8 @@ main.container, main.content > .container{
     img{
         display:block;
         margin:auto;
+        margin-top:30px;
+        margin-bottom:6px;
         max-height:400px;
     }
 }

@@ -64,6 +64,24 @@ You can also use one-line conditions
 alert ';)' if true
 ```
 
+#### Loops
+
+JavaScript
+
+```javascript
+var array = ["Hello", "World"];
+for (var i = 0; i < array.length; i++) {
+    alert(array[i]);
+}
+```
+
+CoffeeScript
+
+```coffeescript
+for word in ["Hello", "World"]
+  alert word
+```
+
 #### Ruby-style string interpolation.
 
 Javascript
