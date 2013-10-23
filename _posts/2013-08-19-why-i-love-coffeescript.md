@@ -123,7 +123,9 @@ math =
   cube:   (x) -> x * square x
 ```
 
-But the most important advantage of CoffeeScript, for me, is the syntax of classes. JavaScript comes with prototypes that you can use to emulate classes. The bad part is that it increases the syntax burden.
+#### Classes
+
+The most important advantage of CoffeeScript, for me, is the syntax of classes. JavaScript comes with prototypes that you can use to emulate classes. The bad part is that it increases the syntax burden.
 
 CoffeeScript provides a very clean class structure with inheritance, constructor, etc.
 
