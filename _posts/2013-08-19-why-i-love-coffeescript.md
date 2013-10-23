@@ -175,4 +175,5 @@ This way, you can code CoffeeScript on your editor and directly see the resultin
 ### More information
 
  * [Official website](http://coffeescript.org)
+ * [Try CoffeeScript online](http://coffeescript.org/#try:alert%20%22Hello%20CoffeeScript!%22)
  * [The Little Book on CoffeeScript](http://arcturo.github.io/library/coffeescript)
