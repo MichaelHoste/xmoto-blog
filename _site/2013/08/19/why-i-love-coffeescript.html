@@ -46,18 +46,133 @@
 				<h5>19 August 2013</h5>
 				<h2 class="content">3. Why I love CoffeeScript</h2>
 				<section>
-					
-<p>Like I said in my <a href="/2013/08/18/choice-of-technology.html">previous post</a>, I will use <a href="http://coffeescript.org/">CoffeeScript</a> instead of JavaScript to develop XMoto for the web.</p>
+					<p>Like I said in my <a href="/2013/08/18/choice-of-technology.html">previous post</a>, I will use <a href="http://coffeescript.org/">CoffeeScript</a> instead of JavaScript to develop XMoto for the web. This choice may not be obvious for all of you, but I&#39;d say it&#39;s a very good foundation for any web application.</p>
 
 <p>But what exactly is CoffeeScript ?</p>
 
-<h3 id="coffeescript_is_javascript">CoffeeScript is JavaScript</h3>
+<p><a href="(http://coffeescript.org/"><img src="/img/coffeescript.png" alt="CoffeeScript"></a></p>
 
-<p>blablabl</p>
+<h3>&quot;It&#39;s just JavaScript&quot;</h3>
 
-<h3 id="syntactic_sugar">Syntactic sugar</h3>
+<p>Like the official documentation says: <em>CoffeeScript is an attempt to expose the good parts of JavaScript in a simple way</em>.</p>
 
-<p>http://arcturo.github.io/library/coffeescript/</p>
+<p>CoffeeScript is just &quot;another way to write JavaScript&quot;. Indeed, your CoffeeScript code will be transformed (compiled) to JavaScript. The <em>generated JavaScript code</em> will then be interpreted by the browser. Note that JavaScript is the only language that the browser is able to execute.</p>
+
+<p>CoffeeScript is compatible with every JavaScript libraries and this is very important for this project because we want to use Box2D.</p>
+
+<h3>Background</h3>
+
+<p>For my passion for CoffeeScript to be well-understood, you need to know my programming background.</p>
+
+<p>My first primary language was C, then C++. I made <a href="http://pongl.xc-lan.be/">some</a> <a href="http://www.youtube.com/watch?v=NOhIY6--W7s">games</a> using OpenGL with these languages so I was pretty confortable programming using curly brackets <code>{ }</code>, parentheses <code>( )</code>, variable declarations, <code>*.h</code> header files, etc.</p>
+
+<p>For my studies, I needed to use Java (and I hated all those <a href="http://www.fluffycat.com/Java-Design-Patterns/">silly patterns</a> that we were forced to use for small projects !). I liked static and compiled languages but my need to be fast to hack small applications made me switch to more dynamic and interpreted languages like Python and Ruby.</p>
+
+<p>Programming with Ruby was an experience so nice that I made it my job, <a href="http://www.80limit.com">developing web applications using Ruby on Rails</a>.</p>
+
+<p>When I started to develop with JavaScript, it was a burden for me to write code. The syntax was verbose like the one of C, Java, etc. I didn&#39;t want to go back to this so I looked for alternatives and I found CoffeeScript.</p>
+
+<h3>Syntactic sugar</h3>
+
+<p>CoffeeScript comes with nice syntactic sugar that makes the syntax very clean. Like Python, the use of curly brackets <code>{ }</code> is replaced by the indentation of lines. You love it or you hate it, but for my part I like the strict convention.</p>
+
+<p>Here are some examples of CoffeeScript syntax opposite to JavaScript syntax.</p>
+
+<h4>Conditions</h4>
+
+<p>JavaScript</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;;)&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;:(&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>CoffeeScript</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="k">if</span> <span class="kc">true</span>
+  <span class="nx">alert</span> <span class="s">&#39;;)&#39;</span>
+<span class="k">else</span>
+  <span class="nx">alert</span> <span class="s">&#39;:(&#39;</span>
+</code></pre></div>
+<p>You can also use one-line conditions</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nx">alert</span> <span class="s">&#39;;)&#39;</span> <span class="k">if</span> <span class="kc">true</span>
+</code></pre></div>
+<h4>Ruby-style string interpolation.</h4>
+
+<p>Javascript</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">author</span><span class="p">,</span> <span class="nx">quote</span><span class="p">,</span> <span class="nx">sentence</span><span class="p">;</span>
+<span class="nx">author</span> <span class="o">=</span> <span class="s2">&quot;Wittgenstein&quot;</span><span class="p">;</span>
+<span class="nx">quote</span> <span class="o">=</span> <span class="s2">&quot;A picture is a fact. -- &quot;</span> <span class="o">+</span> <span class="nx">author</span><span class="p">;</span>
+</code></pre></div>
+<p>CoffeeScript</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">author = </span><span class="s">&quot;Wittgenstein&quot;</span>
+<span class="nv">quote  = </span><span class="s">&quot;A picture is a fact. -- </span><span class="si">#{</span> <span class="nx">author</span> <span class="si">}</span><span class="s">&quot;</span>
+</code></pre></div>
+<h4>Simple hash with a function in it</h4>
+
+<p>Javascript</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">math</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">root</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">,</span>
+  <span class="nx">square</span><span class="o">:</span> <span class="nx">square</span><span class="p">,</span>
+  <span class="nx">cube</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>CoffeeScript</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">math =</span>
+  <span class="nv">root: </span>  <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span>
+  <span class="nv">square: </span><span class="nx">square</span>
+  <span class="nv">cube: </span>  <span class="nf">(x) -&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">square</span> <span class="nx">x</span>
+</code></pre></div>
+<p>But the most important advantage of CoffeeScript, for me, is the syntax of classes. JavaScript comes with prototypes that you can use to emulate classes. The bad part is that it increases the syntax burden.</p>
+
+<p>CoffeeScript provides a very clean class structure with inheritance, constructor, etc.</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="k">class</span> <span class="nx">Animal</span>
+  <span class="nv">constructor: </span><span class="nf">(@name) -&gt;</span>
+
+  <span class="nv">move: </span><span class="nf">(meters) -&gt;</span>
+    <span class="nx">alert</span> <span class="nx">@name</span> <span class="o">+</span> <span class="s">&quot; moved </span><span class="si">#{</span><span class="nx">meters</span><span class="si">}</span><span class="s">m.&quot;</span>
+
+<span class="k">class</span> <span class="nx">Snake</span> <span class="k">extends</span> <span class="nx">Animal</span>
+  <span class="nv">move: </span><span class="nf">-&gt;</span>
+    <span class="nx">alert</span> <span class="s">&quot;Slithering...&quot;</span>
+    <span class="k">super</span> <span class="mi">5</span>
+
+<span class="k">class</span> <span class="nx">Horse</span> <span class="k">extends</span> <span class="nx">Animal</span>
+  <span class="nv">move: </span><span class="nf">-&gt;</span>
+    <span class="nx">alert</span> <span class="s">&quot;Galloping...&quot;</span>
+    <span class="k">super</span> <span class="mi">45</span>
+
+<span class="nv">sam = </span><span class="k">new</span> <span class="nx">Snake</span> <span class="s">&quot;Sammy the Python&quot;</span>
+<span class="nv">tom = </span><span class="k">new</span> <span class="nx">Horse</span> <span class="s">&quot;Tommy the Palomino&quot;</span>
+
+<span class="nx">sam</span><span class="p">.</span><span class="nx">move</span><span class="p">()</span>
+<span class="nx">tom</span><span class="p">.</span><span class="nx">move</span><span class="p">()</span>
+</code></pre></div>
+<p>This class structure is what makes me switch to CoffeeScript for another project: <a href="https://sokoban-game.com">Sokoban</a>. When I converted some of my code from C to CoffeeScript, the size of the file was more 2 times smaller than the original size and nicer to read.</p>
+
+<p>Here is a real CoffeeScript class that manage the creation of a Sokoban level with specfic methods to move the player and the boxes, or to roll back the movements : <a href="https://github.com/MichaelHoste/sokoban/blob/bc1f708af2c6d4aaf3f181ee1763a728c52a9a27/app/assets/javascripts/game/models/level_core.js.coffee">CoffeeScript file</a>.</p>
+
+<p>This file is so clean in regard of a JavaScript file that, since that day, I switched and only write web applications using CoffeeScript.</p>
+
+<h3>How to setup CoffeeScript</h3>
+
+<p>Since CoffeeScript compiles to JavaScript, you have to install a binary file on your system and execute a simple command to generate your <code>.js</code> file :</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">coffee -j bin/xmoto.js -wc src/*
+</code></pre></div>
+<p>It just says that it compiles each <code>.js</code> file from the <code>src/*</code> directory to <code>bin/xmoto.js</code> and join them in a single file (you can have multiple .coffee files).</p>
+
+<p>the option &quot;-w&quot; means that coffee watches for any change you make in one of the <code>.coffee</code> files. At the moment you changed something, the new corresponding <code>.js</code> file is generated in realtime.</p>
+
+<p>This way, you can code CoffeeScript on your editor and directly see the resulting web page on your browser in realtime with the last <code>.js</code> file.</p>
+
+<h3>More information</h3>
+
+<ul>
+<li><a href="http://coffeescript.org">Official website</a></li>
+<li><a href="http://arcturo.github.io/library/coffeescript">The Little Book on CoffeeScript</a></li>
+</ul>
 
 					<hr>
 				</section>

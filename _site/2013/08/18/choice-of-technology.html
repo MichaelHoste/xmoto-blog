@@ -46,52 +46,50 @@
 				<h5>18 August 2013</h5>
 				<h2 class="content">2. Choice of technology</h2>
 				<section>
-					
-<h3 id="current_xmoto_implementation">Current XMoto implementation</h3>
+					<h3>Current XMoto implementation</h3>
 
 <p>Since the original XMoto is created in C++, it has to be compiled to serveral platforms. It means that it needs to be compiled for Windows, for MacOS and for Linux. Worse than that, the compilation must be made for different versions of each platforms (<a href="http://en.wikipedia.org/wiki/Universal_binary">universal binary</a> for MacOS, <a href="http://en.wikipedia.org/wiki/Linux_distribution#Popular_distributions">different distributions of Linux</a>, etc.).</p>
 
-<p>When you have created binary files for each of those plateforms, the work is not done yet, you still have to “package” the binaries into a nice installer for Windows or MacOS, or to push the package to a Package Manager on a Linux distribution (<a href="https://wiki.debian.org/Apt">APT</a> on Debian distributions, <a href="http://www.rpm.org/">RPM</a> on RedHat etc.).</p>
+<p>When you have created binary files for each of those plateforms, the work is not done yet, you still have to &quot;package&quot; the binaries into a nice installer for Windows or MacOS, or to push the package to a Package Manager on a Linux distribution (<a href="https://wiki.debian.org/Apt">APT</a> on Debian distributions, <a href="http://www.rpm.org/">RPM</a> on RedHat etc.).</p>
 
-<p>This is a nightmare to maintain and hours of configuration and headache for each release ! This is why there is still no MacOS version of XMoto 0.5.10 more than one year after it was released (“Waiting that somebody makes it”).</p>
+<p>This is a nightmare to maintain and hours of configuration and headache for each release ! This is why there is still no MacOS version of XMoto 0.5.10 more than one year after it was released (&quot;Waiting that somebody makes it&quot;).</p>
 
-<p><img src="/img/xmoto-versions.png" alt="Versions of XMoto" /></p>
+<p><img src="/img/xmoto-versions.png" alt="Versions of XMoto"></p>
 
-<p>(I tried to make it for the community, but I was only able to compile and use it on my computer, but not to package it. It was quite difficult, and I needed to use XCode that I don’t know at all…)</p>
+<p>(I tried to make it for the community, but I was only able to compile and use it on my computer, but not to package it. It was quite difficult, and I needed to use XCode that I don&#39;t know at all...)</p>
 
-<h3 id="web_xmoto_implementation">Web XMoto implementation</h3>
+<h3>Web XMoto implementation</h3>
 
 <p>With the web implementation, most of these issues magically disappeared !</p>
 
 <p>Once the game is created and published online, it should work on every platforms without any special compilation. The problem lies elsewhere in web development : the gamers will be using different browsers to access the game (Chrome, Internet Explorer, Safari, etc.) and we need to make the game work with all of these browsers.</p>
 
-<p><img src="/img/browsers.jpg" alt="Versions of XMoto" /></p>
+<p><img src="/img/browsers.jpg" alt="Versions of XMoto"></p>
 
 <p>The good news is that the recent versions of browsers seems to technically converge and, usually, when it works on a browser, it works on the others (sometimes there are some small differences but they are quite easy to fix).</p>
 
-<h3 id="continuous_development">Continuous development</h3>
+<h3>Continuous development</h3>
 
-<p>The <strong><em>GREAT advantage</em></strong> of web development is that you can do continuous development and continuous deployment ! This may be little known to non-technical people but since your application is installed in one single place (the web server), you never have to think about “releases”. At any period of time, you are 100% sure that all of your users are using the last version of your game.</p>
+<p>The <strong><em>GREAT advantage</em></strong> of web development is that you can do continuous development and continuous deployment ! This may be little known to non-technical people but since your application is installed in one single place (the web server), you never have to think about &quot;releases&quot;. At any period of time, you are 100% sure that all of your users are using the last version of your game.</p>
 
 <p>This implies 2 things :</p>
 
 <ul>
 <li>Unlike original XMoto, you never get the situation where your users are fragmented between versions (ex. 50% of users on 0.5.2, 23% on 0.5.9 and 27% on 0.5.10).</li>
-
 <li>When fixing a bug, you just need to execute one single command (usually <code>git push...</code>) to force everybody to use the latest debugged version.</li>
 </ul>
 
 <p>With this kind of development, you are encouraged to iteratively improve your application several times a day (<em>move fast and break things</em> like Facebook says). Many developers love that idea !</p>
 
-<p>In the case of web commercial software, since there is no more “releases”, users pay yearly or monthly fees (<a href="http://en.wikipedia.org/wiki/Software_as_a_service">Software as a Service</a> or SaaS). That’s exactly because of the better software development cycle and more stable business model that web applications are currently killing the traditional “destkop applications” industry.</p>
+<p>In the case of web commercial software, since there is no more &quot;releases&quot;, users pay yearly or monthly fees (<a href="http://en.wikipedia.org/wiki/Software_as_a_service">Software as a Service</a> or SaaS). That&#39;s exactly because of the better software development cycle and more stable business model that web applications are currently killing the traditional &quot;destkop applications&quot; industry.</p>
 
 <p>Ever wondered why Chrome is like an OS but with web applications ? Now you can make an educated guess :-)</p>
 
-<h3 id="web_technology">Web technology</h3>
+<h3>Web technology</h3>
 
-<p>If I wrote this blog 10 years ago, the goal of this chapter would be to introduce you to Macromedia Flash (<a href="http://www.adobe.com/products/flash.html">Adobe Flash</a> since 2005). Flash was a great tool for web animations but it is now slowly replaced by <a href="http://www.w3schools.com/html/html5_intro.asp">HTML5</a> new features like Canvas, that support 2D and even 3D with OpenGL. These new features are directly integrated in recent browsers and don’t need any plugins to work.</p>
+<p>If I wrote this blog 10 years ago, the goal of this chapter would be to introduce you to Macromedia Flash (<a href="http://www.adobe.com/products/flash.html">Adobe Flash</a> since 2005). Flash was a great tool for web animations but it is now slowly replaced by <a href="http://www.w3schools.com/html/html5_intro.asp">HTML5</a> new features like Canvas, that support 2D and even 3D with OpenGL. These new features are directly integrated in recent browsers and don&#39;t need any plugins to work.</p>
 
-<p><img src="/img/html5.png" alt="HTML5" /></p>
+<p><img src="/img/html5.png" alt="HTML5"></p>
 
 <p>So, I will use HTML5 to create the web version of XMoto. But what does that imply exactly ? It implies that I will be using HTML, CSS and JavaScript, like every other website.</p>
 
@@ -99,15 +97,12 @@
 
 <ul>
 <li>HTML (+ Canvas 2D)</li>
-
 <li>CSS</li>
-
 <li>CoffeeScript</li>
-
 <li>Box2D</li>
 </ul>
 
-<p>CoffeeScript is a high-level language that compiles to JavaScript, it’s the <a href="/2013/08/19/why-i-love-coffeescript.html">subject of my next article</a>.</p>
+<p>CoffeeScript is a high-level language that compiles to JavaScript, it&#39;s the <a href="/2013/08/19/why-i-love-coffeescript.html">subject of my next article</a>.</p>
 
 <p><a href="http://box2d.org/">Box2D</a> is a physics engine library that was ported to JavaScript and that is very popular. This library was <a href="http://www.geek.com/games/box2d-creator-asks-rovio-for-angry-birds-credit-at-gdc-1321779/">used for the Angry Birds games</a>.</p>
 
