@@ -183,7 +183,7 @@
 
     Input.prototype.disable_scroll = function() {
       var keydown, keys, preventDefault;
-      keys = [37, 38, 39, 40];
+      keys = [37, 38, 39, 40, 32];
       preventDefault = function(e) {
         e = e || window.event;
         if (e.preventDefault) {
@@ -1146,6 +1146,7 @@
         level.world.ClearForces();
         return level.display(false);
       };
+      $(".xmoto-loading").hide();
       return window.game_loop = setInterval(update, 1000 / 60);
     });
   };
@@ -1153,6 +1154,7 @@
   $(function() {
     play_level($("#levels option:selected").val());
     return $("#levels").on('change', function() {
+      $(".xmoto-loading").show();
       clearInterval(window.game_loop);
       return play_level($(this).val());
     });
