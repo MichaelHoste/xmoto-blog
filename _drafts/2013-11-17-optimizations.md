@@ -20,3 +20,7 @@ J'ai :
  Le buffer doit être recalculé quand les limites du canvas dépassent les limites pré-calculées du buffer. Dans ce cas il est recalculé à partir de la position actuelle de la moto.
 
  Ce qui signifie qu'en pratique, pour une moto qui avance à une bonne vitesse, le pré-calcul des blocks/edges/sprites est calculé une fois toutes les 5 secondes environ, soit une fois toutes les 300 frames, au lieu d'être calculée à chaque frame.
+
+Parler du fait que l'échelle du buffer peut être exactement ce qu'on veut !
+Plus elle est petite par rapport à l'échelle de base (35/35), plus la texture sera laide par défaut mais plus la zone couverte par le buffer sera grande.
+(montrer deux screenshots)
