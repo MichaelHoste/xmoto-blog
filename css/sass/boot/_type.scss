@@ -170,8 +170,10 @@ blockquote {
   margin: 0 0 $baseLineHeight;
   border-left: 5px solid $grayLighter;
   p {
+    margin-top:30px;
     margin-bottom: 0;
-    @include font-shorthand(16px,300,$baseLineHeight * 1.25);
+    color:#777777;
+    @include font-shorthand(16px,300,$baseLineHeight * 0.80);
   }
   small {
     display: block;

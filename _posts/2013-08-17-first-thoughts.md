@@ -35,7 +35,7 @@ I connected the game to Facebook and it helped to have users playing the game. A
 
 Sokoban-Game is open-source (GNU/GPL) and [hosted on GitHub](https://github.com/MichaelHoste/sokoban). You are free to have a look at the code.
 
-[![Sokoban](/img/sokoban.png)](https://www.sokoban-game.com)
+[![Sokoban](/img/sokoban.jpg)](https://www.sokoban-game.com)
 
 After the relative success of Sokoban, I wanted to create a more popular and fun game to  play. Something that could be multiplayer. Something with nice graphics. Something using Canvas 2D or Canvas 3D on HTML5 and nice animations. Something not too complicated, neither too simple.
 
