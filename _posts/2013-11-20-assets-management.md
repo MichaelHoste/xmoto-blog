@@ -15,7 +15,7 @@ But in order to reduce the loading time and keeping the memory low, it's advised
 
 There are some exceptions in sandbox games where the world is huge like GTA. In these games, assets are loaded in real-time depending on the objects around you (assets streaming).
 
-XMoto, in comparison, is a small game with only a handful of assets : each level has a background and sky texture, some sprites (static or animated), some sounds and the textures of the moto and rider parts. To efficiently deal with these files, we will create an Assets Manager whose job is to collect and load all the files needed to display a specific level.
+XMoto, in comparison, is a small game with only a handful of assets : each level has a background and sky texture, some sprites (static or animated), some sounds and the textures of the moto and rider parts. To efficiently deal with these files, we will create an Assets Manager whose job is to collect and load all the files needed to display a specific level before starting it.
 
 ### Game Loop
 
@@ -67,64 +67,33 @@ The line ```level.assets.load( ->``` just say "load the assets, and then, when t
 
 But how exactly works the assets loading ?
 
-We choose to use [PreloadJS](http://www.createjs.com/#!/PreloadJS) that is part of the [CreateJS](http://www.createjs.com) framework. PreloadJS purpose is to create [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming) calls to get some files and store then into the memory. When those files are loaded, a callback is executed (a callback is a function like the ```->``` symbol of CoffeeScript) and the rest of the game can be executed.
+We choose to use [PreloadJS](http://www.createjs.com/#!/PreloadJS) that is part of the [CreateJS](http://www.createjs.com) framework. PreloadJS purpose is to create [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming) calls to get some files and store them into the memory. When those files are loaded, a callback is executed (a callback is a function like the ```->``` symbol of CoffeeScript) and the rest of the game can be executed.
 
 [![CreateJS](/img/createjs.jpg)](http://www.createjs.com)
 
 [![PreloadJS](/img/preloadjs.png)](http://www.createjs.com/#!/PreloadJS)
 
-Just like our ```level.assets.load()``` that, when all the assets are loaded, call the function passed as argument (```-> input();physics();display();```).
+Just like ```level.assets.load()``` that, when all the assets are loaded, calls the function passed as argument (```-> input();physics();display();```).
 
 The code where PreloadJS is used lies in the ```Assets.coffee``` file. Here is a simplified version of it :
 
-```coffeescript
-class window.Assets
+{% highlight coffeescript linenos %}
+class Assets
 
   constructor: ->
-    @queue = new createjs.LoadQueue()
-    @list     = [] # complete list of assets
-    @textures = [] # texture list
-    @anims    = [] # anim lists
+    @queue    = new createjs.LoadQueue()
+    @textures = []
 
-  # Load a batch of textures in this format [{ id: "", src: ""}, {...}]
-  load: (items, callback) ->
-    for item in items
-      @list.push(item.id)
-
-    @queue.addEventListener("complete", callback)
-    @queue.loadManifest(items)
-
-  # Load textures for a specific level
-  load_for_level: (xmoto_level, callback) ->
-    # Sky (Textures)
-    @list    .push(xmoto_level.infos.sky.name)
-    @textures.push(xmoto_level.infos.sky.name)
-
-    # Blocks (Textures)
-    for block in xmoto_level.blocks
-      @list    .push(block.usetexture.id)
-      @textures.push(block.usetexture.id)
-
-    # Sprites (Anims)
-    for entity in xmoto_level.entities
-      if entity.type_id == 'Sprite'
-        for param in entity.params
-          if param.name == 'name'
-            @list .push(param.value)
-            @anims.push(param.value)
-
-    # Format list for loading
+  load: (callback) ->
     items = []
+
     for item in @textures
       items.push(
         id:  item
-        src: "/xmoto_data/Textures/Textures/#{item}.jpg"
+        src: "data/Textures/Textures/#{item}.jpg"
       )
-    for item in @anims
-      items.push(
-        id:  item
-        src: "/xmoto_data/Textures/Anims/#{item}.png"
-      )
+
+    items = @remove_duplicate_textures(items)
 
     @queue.addEventListener("complete", callback)
     @queue.loadManifest(items)
@@ -132,16 +101,57 @@ class window.Assets
   # Get an asset by its name ("id")
   get: (name) ->
     @queue.getResult(name)
-```
+
+  remove_duplicate_textures: (array) ->
+    unique = []
+    for image in array
+      found = false
+      for unique_image in unique
+        found = true if image.id == unique_image.id
+      unique.push(image) if not found
+    return unique
+{% endhighlight %}
 
 Some tips to understand this code :
 
- * ```@queue.addEventListener("complete", callback)``` tells that when the assets loading is complete, call the ```callback``` method. This is the method we passed as parameter.
- * ```@queue.loadManifest(items)``` loads all the assets of the ```items``` array.
+ * ```@queue = new createjs.LoadQueue()``` is the [main object](http://www.createjs.com/Docs/PreloadJS/classes/LoadQueue.html) of PreloadJS.
+
+ * ```@textures``` is an array where all the names of the required textures for this level are being stored by outside calls before calling ```load()``` method (see Section "Get an asset from the asset manager").
+
+ * Once the ```@textures``` variable is completed with all the required textures for this level, the ```load()``` method can be called. It loads all the assets using PreloadJS and then execute the callback (the main loop).
+
+   * ```items``` is a an array of hashes created to feed PreloadJS. ```id``` is the name of the asset so we can find it back later, and ```src``` is where the asset is located.
+
+   * ```@queue.addEventListener("complete", callback)``` tells to call the ```callback``` function when the assets loading is completed.
+
+   * ```@queue.loadManifest(items)``` loads all the assets in memory.
+
+ * ```remove_duplicate_textures(array)``` is just an small method that checks that each asset is only loaded one time.
+
+> **Note** : This piece of code is relatively less complicated than the original version. That's because the assets in the original XMoto game are divided into several folders (/Textures/, /Anims/, /Riders/, /Effects/, etc.) and some meta-informations about them were in a ```.xml``` file. But you get the idea.
 
 ### Tell the asset manager to load an asset
 
-### Ask the asset manager the link to an asset
+When the game in started, one [level is parsed](/2013/08/20/level-parsing.html) and, during this process, a certain number of texture names are collected. Textures of moto, blocks, edges, sprites etc. At this moment, the asset manager is called and the name of the texture is appended to the ```@texture``` array like this :
+
+```coffeescript
+for block in blocks
+  @assets.textures.push(block.usetexture.id)
+```
+
+Then, after the level is completely parsed, the ```assets.load()``` is executed to load all the related files in memory.
+
+### Get an asset from the asset manager
+
+At each frame of the game, assets are drawn on the screen like this :
+
+```coffeescript
+ctx.drawImage(@assets.get(texture_name), 0, 0, width, height)
+```
+
+the ```@assets.get(texture_name)``` is a special proxy from the Assets class to get the asset from memory using PreloadJS (```@queue.getResult(name)``` in Assets.coffee).
+
+We will learn more about ways of drawing sprites and textures on the screen in the next chapter.
 
 ### More informations
 
