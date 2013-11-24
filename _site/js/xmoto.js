@@ -493,7 +493,6 @@
       this.script = new Script(this);
       this.entities = new Entities(this);
       this.buffer = new Buffer(this);
-      this.need_to_restart = true;
     }
 
     Level.prototype.load_from_file = function(file_name) {
@@ -518,7 +517,9 @@
       this.moto.init();
       this.ghost.init();
       this.input.init();
-      return this.listeners.init();
+      this.listeners.init();
+      this.start_time = new Date().getTime();
+      return this.current_time = 0;
     };
 
     Level.prototype.init_canvas = function() {
