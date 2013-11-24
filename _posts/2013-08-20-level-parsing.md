@@ -169,7 +169,7 @@ The purpose of this method is to create an internal structure (hash) with genera
 
 The same parsing structure is repeated for general informations, entities, etc. And after that, every useful part of information about a level is stored in memory.
 
-Next step would be to display that information on the screen, but first, we need to create our own [Assets Manager](/2013/11/20/assets-management.html)
+Next step would be [to display that information on the screen](/2013/11/21/HTML5-canvas-2D.html), but first, we need to create our own [Assets Manager](/2013/11/20/assets-management.html)
 
 ### More informations
 

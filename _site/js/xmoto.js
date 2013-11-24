@@ -66,11 +66,11 @@
         y: this.level.scale.y < -70 ? -70 : this.level.scale.y
       };
       this.compute_visibility();
+      this.ctx.clearRect(0, 0, this.canvas_width, this.canvas_height);
       this.ctx.save();
       this.ctx.translate(this.canvas_width / 2, this.canvas_height / 2);
       this.ctx.scale(this.buffer_scale.x, this.buffer_scale.y);
       this.ctx.translate(-moto.position().x, -moto.position().y - 0.25);
-      this.sky.display(this.ctx);
       this.limits.display(this.ctx);
       this.entities.display_sprites(this.ctx);
       this.blocks.display(this.ctx);
@@ -427,7 +427,7 @@
       return canvas.addEventListener('mousewheel', scroll, false);
     };
 
-    Input.prototype.move_moto = function() {
+    Input.prototype.move = function() {
       var force, moto, rider, v;
       force = 24.1;
       moto = this.level.moto;
@@ -541,6 +541,7 @@
       }
       this.update_timer();
       this.compute_visibility();
+      this.sky.display(this.ctx);
       if (this.buffer.redraw_needed()) {
         this.buffer.redraw();
       }
@@ -690,15 +691,27 @@
     level = new Level();
     level.load_from_file(name);
     return level.assets.load(function() {
-      var update;
+      var last_step, physics_step, update, update_physics;
       createjs.Sound.setMute(true);
-      update = function() {
-        level.input.move_moto();
-        level.world.Step(1.0 / 60.0, 10, 10);
-        level.world.ClearForces();
-        return level.display(false);
+      last_step = new Date().getTime();
+      physics_step = 1000.0 / 60.0;
+      update_physics = function() {
+        var _results;
+        _results = [];
+        while ((new Date()).getTime() - last_step > physics_step) {
+          level.input.move();
+          level.world.Step(1.0 / 60.0, 10, 10);
+          level.world.ClearForces();
+          _results.push(last_step += physics_step);
+        }
+        return _results;
       };
-      window.game_loop = setInterval(update, 1000 / 60);
+      update = function() {
+        update_physics();
+        level.display(false);
+        return window.requestAnimationFrame(update);
+      };
+      update();
       return hide_loading();
     });
   };
@@ -712,12 +725,11 @@
   };
 
   full_screen = function() {
-    $("#game").width($("body").width());
-    $("#game").height($("body").height());
-    return window.onresize = function() {
+    window.onresize = function() {
       $("#game").width($("body").width());
       return $("#game").height($("body").height());
     };
+    return window.onresize();
   };
 
   $(function() {
@@ -1616,13 +1628,14 @@
 
     Sky.prototype.display = function(ctx) {
       ctx.beginPath();
-      ctx.moveTo(this.level.limits.screen.left + this.level.limits.size.x, this.level.limits.screen.bottom);
-      ctx.lineTo(this.level.limits.screen.left + this.level.limits.size.x, this.level.limits.screen.bottom + this.level.limits.size.y);
-      ctx.lineTo(this.level.limits.screen.left, this.level.limits.screen.bottom + this.level.limits.size.y);
-      ctx.lineTo(this.level.limits.screen.left, this.level.limits.screen.bottom);
+      ctx.moveTo(this.level.canvas_width, this.level.canvas_height);
+      ctx.lineTo(0, this.level.canvas_height);
+      ctx.lineTo(0, 0);
+      ctx.lineTo(this.level.canvas_width, 0);
       ctx.closePath();
       ctx.save();
-      ctx.scale(1.0 / 15.0, -1.0 / 15.0);
+      ctx.scale(4.0, 4.0);
+      ctx.translate(-this.level.moto.position().x * 4, this.level.moto.position().y * 2);
       ctx.fillStyle = ctx.createPattern(this.assets.get(this.name), "repeat");
       ctx.fill();
       return ctx.restore();
