@@ -68,24 +68,129 @@
 				<h5>21 November 2013</h5>
 				<h2 class="content">6. HTML5 - Canvas 2D</h2>
 				<section>
-					<h3>Show me the world</h3>
+					<h3>Show me the world !</h3>
 
-<p>Now that we have in memory :</p>
+<p>The last articles were about loading files in memory:</p>
 
 <ul>
-<li><p>The useful informations to display the level : blocks and sprite positions, name of textures, starting position of moto, ending position of level, etc. (<em>cf.</em> <a href="/2013/08/20/level-parsing.html">Level Parsing</a>)</p></li>
+<li><p>The useful informations to display one level: blocks and sprite positions, name of textures, starting position of moto, ending position of level, etc. (<em>cf.</em> <a href="/2013/08/20/level-parsing.html">Level Parsing</a>)</p></li>
 <li><p>The assets : images for sprites and textures for blocks (<em>cf.</em> <a href="/2013/11/20/assets-management.html">Assets Management</a>)</p></li>
 </ul>
 
-<p>We can start to display the level in a HTML5 canvas.</p>
+<p>Now, we&#39;re ready to display the level in a HTML5 canvas.</p>
 
-<p>Canvas, and in our case Canvas 2D, is a HTML technology that you can use to make similar things than Adobe Flash. What it means is that you don&#39;t need anymore an external plugin to make a game works in the browser. It&#39;s now part of the W3C that defines the protocol/structure of the web.</p>
+<h3>Canvas</h3>
+
+<p>Canvas is a <a href="http://www.w3schools.com/html/html5_intro.asp">HTML5</a> technology that you can use to make games, animations, videos and other funny stuff for the web. Before HTML5, those things required a plugin for your browser and the most popular of them was <a href="http://www.adobe.com/products/flash.html">Adobe Flash</a>. The big problem with these plugins was that they needed full access to your computer and were subject to many critical issues and sometimes caused the browsers to crash frequently.</p>
+
+<p>Now it&#39;s 2013 and the web evolved so much that every browser has internal capabilities to execute animations and games on its own. What it means is that you don&#39;t need a plugin anymore to make a game works in the browser. It&#39;s now part of the <a href="http://www.w3.org/">W3C</a> (World Wide Web Consortium) that defines the web standards.</p>
+
+<p>The solution was called : <code>&lt;canvas&gt;&lt;/canvas&gt;</code>.</p>
+
+<p>There are 2 different kinds of Canvas, 2D canvas and 3D canvas :</p>
+
+<ul>
+<li><p><a href="http://www.w3.org/TR/2dcontext/">2D canvas specifications</a> (2D Context) are created by W3C and provide a list of operations that you can use in your canvas : <code>fillRect()</code>, <code>drawImage()</code>, <code>createPattern()</code>, etc. A more complete list is <a href="http://www.w3schools.com/tags/ref_canvas.asp">here</a>.</p></li>
+<li><p><a href="http://www.khronos.org/registry/webgl/specs/latest/1.0/">3D canvas specifications</a> (<a href="http://en.wikipedia.org/wiki/WebGL">WebGL</a>) are created by the <a href="http://en.wikipedia.org/wiki/Khronos_Group">Khronos Group</a> and bring the power of OpenGL to your browser and supports your GPU for great performances.</p></li>
+</ul>
+
+<p>We could have used both the specifications but, since XMoto is full-2D, working with canvas 2D is much more easier than working with WebGL.</p>
+
+<h3>First XMoto level</h3>
+
+<p>To test the display of the levels, we are going to target one specific level : l1038.lvl (<a href="https://github.com/MichaelHoste/xmoto/blob/master/data/Levels/l1038.lvl">source</a>). This is the level we parsed in <a href="/2013/08/20/level-parsing.html">Chapter 4</a>.</p>
+
+<p>This is the first level that is presented to the user when the original game in launched and it looks like this:</p>
+
+<p><img src="/img/first_level.png" alt="First level"></p>
+
+<p>As you can see from the image and the source of the level, this is a very simple level (53 lines in the xml file). There are just some general informations, one single block and some classic entities like <code>PlayerStart</code>, <code>EndOfLevel</code> and <code>Sprite</code>. The perfect level to start drawing.</p>
+
+<p>In this chapter, we will only learn how to draw blocks (ground, walls, etc.) and sprite entities because they illustrate two different types of drawings (<code>createPattern()</code> and <code>drawImage()</code>) and the rest of the level (sky, edges, etc.) can also be created with these two methods. So the code will almost be the same.</p>
+
+<p>First thing to do is to create the canvas context:</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">canvas = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#game&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nv">ctx    = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s">&#39;2d&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>where the HTML canvas looks like this:</p>
+<div class="highlight"><pre><code class="html language-html" data-lang="html"><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;game&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div>
+<p>The context variable is then used to execute any method related to Canvas 2D.</p>
+
+<h4>Blocks</h4>
+
+<div class="highlight"><pre><code class="coffeescript"><span class="lineno"> 1</span> <span class="nv">display: </span><span class="nf">(ctx) -&gt;</span>
+<span class="lineno"> 2</span>   <span class="k">for</span> <span class="nx">block</span> <span class="k">in</span> <span class="nx">@blocks</span>
+<span class="lineno"> 3</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+<span class="lineno"> 4</span> 
+<span class="lineno"> 5</span>     <span class="k">for</span> <span class="nx">vertex</span><span class="p">,</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">block</span><span class="p">.</span><span class="nx">vertices</span>
+<span class="lineno"> 6</span>       <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="lineno"> 7</span>         <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
+<span class="lineno"> 8</span>       <span class="k">else</span>
+<span class="lineno"> 9</span>         <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
+<span class="lineno">10</span> 
+<span class="lineno">11</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+<span class="lineno">14</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">)</span>
+<span class="lineno">15</span>     <span class="nv">ctx.fillStyle = </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">createPattern</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">block</span><span class="p">.</span><span class="nx">usetexture</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span> <span class="s">&#39;repeat&#39;</span><span class="p">)</span>
+<span class="lineno">16</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+<span class="lineno">17</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Explanations:</p>
+
+<ul>
+<li><p>Line <strong>2</strong>: We loop on the blocks that we have in memory (parsed at the start of the level).</p></li>
+<li><p>Line <strong>3</strong>: We start the drawing of a &quot;path&quot; with <code>ctx.beginPath()</code>. A path is a serie of vertices that creates a polygon.</p></li>
+<li><p>Lines <strong>5-9</strong>: For each block, we loop on its vertices (a block has many vertices). The first point (<code>ctx.moveTo()</code>) or the next point (<code>ctx.lineTo()</code>) of the path is created.</p></li>
+<li><p>Line <strong>11</strong>: The path is finished and the polygon is closed with <code>ctx.closePath()</code></p></li>
+<li><p>lines <strong>13-17</strong>:</p>
+
+<ul>
+<li><code>ctx.save()</code>: the current context (translation, scale, etc.) is saved.</li>
+<li><code>ctx.scale()</code>: Zoom or dezoom of the texture (from the current context).</li>
+<li><code>ctx.fillStyle</code>: Defines how the path will be filled. Can be a colour, a gradient or a pattern.</li>
+<li><code>ctx.createPattern()</code>: Create a pattern (an image that is repeated). <code>@assets.get()</code> get the image from <a href="/2013/11/20/assets-management.html">our assets manager</a>.</li>
+<li><code>ctx.restore()</code>: The current context is restored.</li>
+</ul></li>
+</ul>
+
+<h4>Entities / Sprites</h4>
+
+<div class="highlight"><pre><code class="coffeescript"><span class="lineno"> 1</span> <span class="nv">display_sprites: </span><span class="nf">(ctx) -&gt;</span>
+<span class="lineno"> 2</span>   <span class="k">for</span> <span class="nx">entity</span> <span class="k">in</span> <span class="nx">@list</span>
+<span class="lineno"> 3</span>     <span class="k">if</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">type_id</span> <span class="o">==</span> <span class="s">&#39;Sprite&#39;</span>
+<span class="lineno"> 4</span>       <span class="nv">texture_name = </span><span class="nx">@entity_texture_name</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+<span class="lineno"> 9</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="lineno">10</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">texture_name</span><span class="p">),</span>
+<span class="lineno">11</span>                     <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span>  <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
+<span class="lineno">12</span>                     <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span>
+<span class="lineno">13</span>                     <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+<span class="lineno">14</span>                     <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="lineno">15</span> 
+<span class="lineno">16</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+<span class="lineno">17</span> 
+<span class="lineno">18</span> <span class="nv">entity_texture_name: </span><span class="nf">(entity) -&gt;</span>
+<span class="lineno">19</span>   <span class="k">for</span> <span class="nx">param</span> <span class="k">in</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">params</span>
+<span class="lineno">20</span>     <span class="k">if</span> <span class="nx">param</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&#39;name&#39;</span>
+<span class="lineno">21</span>       <span class="k">return</span> <span class="nx">param</span><span class="p">.</span><span class="nx">value</span>
+</code></pre></div>
+
+<p>Explanations:</p>
+
+<ul>
+<li><p>Line <strong>2</strong>:</p></li>
+<li><p>Line <strong>3</strong>:</p>
 
 <blockquote>
-<p><strong>Note</strong> We use Canvas 2D in oppositon to Canvas 3D. Canvas 3D is the same HTML <code>&lt;canvas&gt;&lt;/canvas&gt;</code> tag but the drawings on the canvas are made using WebGL. WebGL is a sub-part of OpenGL and allows you to create 3D objects with the support of your GPU. Since XMoto is full-2D, we don&#39;t need WebGL and, by extension, what we call Canvas 3D.</p>
-
 <p>https://dl.dropboxusercontent.com/u/9553927/xmoto2.png</p>
-</blockquote>
+</blockquote></li>
+</ul>
 
 <p><strong><em>this article is not yet finished !</em></strong></p>
 
