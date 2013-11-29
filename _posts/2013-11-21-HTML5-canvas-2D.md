@@ -35,9 +35,9 @@ To test the display of the levels, we are going to target one specific level : l
 
 This is the first level that is presented to the user when the original game in launched and it looks like this:
 
-![First level](/img/first_level.png)
+![First level](/img/first_level.jpg)
 
-As you can see from the image and the source of the level, this is a very simple level (53 lines in the xml file). There are just some general informations, one single block and some classic entities like ```PlayerStart```, ```EndOfLevel``` and ```Sprite```. The perfect level to start drawing.
+As you can see from the image and the source of the level, this is a very simple level ([53 lines in the xml file](https://github.com/MichaelHoste/xmoto/blob/master/data/Levels/l1038.lvl)). There are just some general informations, one single block and some classic entities like ```PlayerStart```, ```EndOfLevel``` and ```Sprite```. The perfect level to start drawing.
 
 In this chapter, we will only learn how to draw blocks (ground, walls, etc.) and sprite entities because they illustrate two different types of drawings (```createPattern()``` and ```drawImage()```) and the rest of the level (sky, edges, etc.) can also be created with these two methods. So the code will almost be the same.
 
@@ -88,11 +88,11 @@ Explanations:
 
  * Line **11**: The path is finished and the polygon is closed with ```ctx.closePath()```
 
- * lines **13-17**:
+ * Lines **13-17**:
    * ```ctx.save()```: the current context (translation, scale, etc.) is saved.
    * ```ctx.scale()```: Zoom or dezoom of the texture (from the current context).
    * ```ctx.fillStyle```: Defines how the path will be filled. Can be a colour, a gradient or a pattern.
-   * ```ctx.createPattern()```: Create a pattern (an image that is repeated). ```@assets.get()``` get the image from [our assets manager](/2013/11/20/assets-management.html).
+   * ```ctx.createPattern()```: Create a pattern (an image that is repeated). ```@assets.get()``` get the image from [our assets manager](/2013/11/20/assets-management.html) using its name (```block.usetexture.id```).
    * ```ctx.restore()```: The current context is restored.
 
 #### Entities / Sprites
@@ -123,12 +123,30 @@ entity_texture_name: (entity) ->
 
 Explanations:
 
- * Line **2**:
+ * Line **2**: We loop on the entities that we have in memory (parsed at the start of the level).
 
- * Line **3**:
+ * Line **3**: Test if the entity if of type "Sprite" (some entities don't need to be displayed).
 
+ * Line **4**: We get the sprite's name. In the XML file, the name of the sprite is stored as parameter named "name".
 
+ * Lines **6-16**:
+   * `ctx.save()`: the current context (translation, scale, etc.) is saved.
+   * ```ctx.scale()```: Reverse the Y axis before drawing the image.
+   * ```ctx.drawImage()```: Draw the image on the screen and center it. The parameters 2 and 3 define the starting position of the image. The parameters 4 and 5 define the size of the image.
+   * ```ctx.restore()```: The current context is restored.
 
- > https://dl.dropboxusercontent.com/u/9553927/xmoto2.png
+### Results
 
-***this article is not yet finished !***
+After the sky is created (another ```createPattern()```) and some global scale adjustments, you finally got this wonderful display.
+
+![First display of our XMoto level](/img/display.jpg)
+
+Just a flat, static screen of a XMoto level, with no moto in it and no interactions.
+
+But there's more to come in the next chapters. Starting with the integration of Box2D for the physics !
+
+### More informations
+
+ * [Complete source code of this version]()
+ * [Documentation of `ctx.createPattern()`]()
+ * [Documentation of ```ctx.drawImage()```]()

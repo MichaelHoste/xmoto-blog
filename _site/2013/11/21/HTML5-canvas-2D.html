@@ -102,9 +102,9 @@
 
 <p>This is the first level that is presented to the user when the original game in launched and it looks like this:</p>
 
-<p><img src="/img/first_level.png" alt="First level"></p>
+<p><img src="/img/first_level.jpg" alt="First level"></p>
 
-<p>As you can see from the image and the source of the level, this is a very simple level (53 lines in the xml file). There are just some general informations, one single block and some classic entities like <code>PlayerStart</code>, <code>EndOfLevel</code> and <code>Sprite</code>. The perfect level to start drawing.</p>
+<p>As you can see from the image and the source of the level, this is a very simple level (<a href="https://github.com/MichaelHoste/xmoto/blob/master/data/Levels/l1038.lvl">53 lines in the xml file</a>). There are just some general informations, one single block and some classic entities like <code>PlayerStart</code>, <code>EndOfLevel</code> and <code>Sprite</code>. The perfect level to start drawing.</p>
 
 <p>In this chapter, we will only learn how to draw blocks (ground, walls, etc.) and sprite entities because they illustrate two different types of drawings (<code>createPattern()</code> and <code>drawImage()</code>) and the rest of the level (sky, edges, etc.) can also be created with these two methods. So the code will almost be the same.</p>
 
@@ -145,13 +145,13 @@
 <li><p>Line <strong>3</strong>: We start the drawing of a &quot;path&quot; with <code>ctx.beginPath()</code>. A path is a serie of vertices that creates a polygon.</p></li>
 <li><p>Lines <strong>5-9</strong>: For each block, we loop on its vertices (a block has many vertices). The first point (<code>ctx.moveTo()</code>) or the next point (<code>ctx.lineTo()</code>) of the path is created.</p></li>
 <li><p>Line <strong>11</strong>: The path is finished and the polygon is closed with <code>ctx.closePath()</code></p></li>
-<li><p>lines <strong>13-17</strong>:</p>
+<li><p>Lines <strong>13-17</strong>:</p>
 
 <ul>
 <li><code>ctx.save()</code>: the current context (translation, scale, etc.) is saved.</li>
 <li><code>ctx.scale()</code>: Zoom or dezoom of the texture (from the current context).</li>
 <li><code>ctx.fillStyle</code>: Defines how the path will be filled. Can be a colour, a gradient or a pattern.</li>
-<li><code>ctx.createPattern()</code>: Create a pattern (an image that is repeated). <code>@assets.get()</code> get the image from <a href="/2013/11/20/assets-management.html">our assets manager</a>.</li>
+<li><code>ctx.createPattern()</code>: Create a pattern (an image that is repeated). <code>@assets.get()</code> get the image from <a href="/2013/11/20/assets-management.html">our assets manager</a> using its name (<code>block.usetexture.id</code>).</li>
 <li><code>ctx.restore()</code>: The current context is restored.</li>
 </ul></li>
 </ul>
@@ -184,15 +184,36 @@
 <p>Explanations:</p>
 
 <ul>
-<li><p>Line <strong>2</strong>:</p></li>
-<li><p>Line <strong>3</strong>:</p>
+<li><p>Line <strong>2</strong>: We loop on the entities that we have in memory (parsed at the start of the level).</p></li>
+<li><p>Line <strong>3</strong>: Test if the entity if of type &quot;Sprite&quot; (some entities don&#39;t need to be displayed).</p></li>
+<li><p>Line <strong>4</strong>: We get the sprite&#39;s name. In the XML file, the name of the sprite is stored as parameter named &quot;name&quot;.</p></li>
+<li><p>Lines <strong>6-16</strong>:</p>
 
-<blockquote>
-<p>https://dl.dropboxusercontent.com/u/9553927/xmoto2.png</p>
-</blockquote></li>
+<ul>
+<li><code>ctx.save()</code>: the current context (translation, scale, etc.) is saved.</li>
+<li><code>ctx.scale()</code>: Reverse the Y axis before drawing the image.</li>
+<li><code>ctx.drawImage()</code>: Draw the image on the screen and center it. The parameters 2 and 3 define the starting position of the image. The parameters 4 and 5 define the size of the image.</li>
+<li><code>ctx.restore()</code>: The current context is restored.</li>
+</ul></li>
 </ul>
 
-<p><strong><em>this article is not yet finished !</em></strong></p>
+<h3>Results</h3>
+
+<p>After the sky is created (another <code>createPattern()</code>) and some global scale adjustments, you finally got this wonderful display.</p>
+
+<p><img src="/img/display.jpg" alt="First display of our XMoto level"></p>
+
+<p>Just a flat, static screen of a XMoto level, with no moto in it and no interactions.</p>
+
+<p>But there&#39;s more to come in the next chapters. Starting with the integration of Box2D for the physics !</p>
+
+<h3>More informations</h3>
+
+<ul>
+<li><a href="">Complete source code of this version</a></li>
+<li><a href="">Documentation of <code>ctx.createPattern()</code></a></li>
+<li><a href="">Documentation of <code>ctx.drawImage()</code></a></li>
+</ul>
 
 					<hr>
 				</section>
