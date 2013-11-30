@@ -1,0 +1,20 @@
+.button-more {
+  text-align:center;
+  margin-top:50px;
+}
+
+.button-more a {
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid #CCCCCC;
+  padding-right: 20px;
+  background-color: #6C9CC2;
+  color: rgb(250, 250, 250);
+  box-shadow: 0px 0px 10px #999999;
+}
+
+.button-more a:hover {
+  text-decoration:none;
+  background-color:#1C649C;
+  box-shadow: 0px 0px 5px #999999;
+}
