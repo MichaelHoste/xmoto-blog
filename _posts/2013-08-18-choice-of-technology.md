@@ -21,7 +21,7 @@ With the web implementation, most of these issues magically disappeared !
 
 Once the game is created and published online, it should work on every platforms without any special compilation. The problem lies elsewhere in web development : the gamers will be using different browsers to access the game (Chrome, Internet Explorer, Safari, etc.) and we need to make the game work with all of these browsers.
 
-![Versions of XMoto](/img/browsers.jpg)
+![Versions of XMoto](/img/browsers.png)
 
 The good news is that the recent versions of browsers seems to technically converge and, usually, when it works on a browser, it works on the others (sometimes there are some small differences but they are quite easy to fix).
 
