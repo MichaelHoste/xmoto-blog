@@ -18,3 +18,88 @@
   background-color:#1C649C;
   box-shadow: 0px 0px 5px #999999;
 }
+
+body.game {
+  background: url('/img/background.png');
+}
+
+body.game .github-banner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  z-index: 1;
+}
+
+body.game .content {
+  position: relative;
+  width:1200px;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: 50px;
+}
+
+body.game #game {
+  box-shadow:0px 0px 30px #888;
+  float:left;
+}
+
+body.game #prev-level, body.game #next-level {
+  width:100px;
+  height:600px;
+  float:left;
+  cursor:pointer;
+  color:#E5E5E5;
+}
+
+body.game #prev-level:hover, body.game #next-level:hover {
+  width:100px;
+  height:600px;
+  float:left;
+  cursor:pointer;
+  color:#999999;
+}
+
+body.game #prev-level i, body.game #next-level i {
+  display:block;
+  font-size: 80px;
+  margin-top: 260px;
+  text-align: center;
+}
+
+body.game #buffer {
+  display:none
+}
+
+body.game #loading {
+  position:absolute;
+  top:100px;
+  width:1200px;
+  text-align:center;
+}
+
+body.game #chrono {
+  position:absolute;
+  top:20px;
+  left:1014px;
+  font-size:20px;
+  background-color:black;
+  color:white;
+  padding:10px;
+  width:46px;
+  opacity:0.5;
+  text-align:center;
+  line-height:16px;
+}
+
+body.game .select-level {
+  float:left;
+  margin-left:100px;
+}
+
+body.game .hint {
+  font-size:12px;
+  text-align:right;
+  float:right;
+  margin-right:100px;
+}
