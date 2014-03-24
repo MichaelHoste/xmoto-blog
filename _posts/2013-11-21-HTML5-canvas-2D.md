@@ -31,13 +31,13 @@ We could have used both the specifications but, since XMoto is full-2D, working 
 
 ### First XMoto level
 
-To test the display of the levels, we are going to target one specific level : l1038.lvl ([source](https://github.com/MichaelHoste/xmoto.io/blob/master/data/Levels/l1038.lvl)). This is the level we parsed in [Chapter 4](/2013/08/20/level-parsing.html).
+To test the display of the levels, we are going to target one specific level : l1038.lvl ([source](https://github.com/MichaelHoste/xmoto.js/blob/master/data/Levels/l1038.lvl)). This is the level we parsed in [Chapter 4](/2013/08/20/level-parsing.html).
 
 This is the first level that is presented to the user when the original game in launched and it looks like this:
 
 ![First level](/img/first_level.jpg)
 
-As you can see from the image and the source of the level, this is a very simple level ([53 lines in the xml file](https://github.com/MichaelHoste/xmoto.io/blob/master/data/Levels/l1038.lvl)). There are just some general informations, one single block and some classic entities like ```PlayerStart```, ```EndOfLevel``` and ```Sprite```. The perfect level to start drawing.
+As you can see from the image and the source of the level, this is a very simple level ([53 lines in the xml file](https://github.com/MichaelHoste/xmoto.js/blob/master/data/Levels/l1038.lvl)). There are just some general informations, one single block and some classic entities like ```PlayerStart```, ```EndOfLevel``` and ```Sprite```. The perfect level to start drawing.
 
 In this chapter, we will only learn how to draw blocks (ground, walls, etc.) and sprite entities because they illustrate two different types of drawings (```createPattern()``` and ```drawImage()```) and the rest of the level (sky, edges, etc.) can also be created with these two methods. So the code will almost be the same.
 
