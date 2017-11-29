@@ -67,7 +67,7 @@ The line ```level.assets.load( ->``` just say "load the assets, and then, when t
 
 But how exactly works the assets loading ?
 
-We choose to use [PreloadJS](http://www.createjs.com/#!/PreloadJS) that is part of the [CreateJS](http://www.createjs.com) framework. PreloadJS purpose is to create [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming) calls to get some files and store them into the memory. When those files are loaded, a callback is executed (a callback is a function like the ```->``` symbol of CoffeeScript) and the rest of the game can be executed.
+We choose to use [PreloadJS](http://www.createjs.com/#!/PreloadJS) that is part of the [CreateJS](http://www.createjs.com) framework. PreloadJS purpose is to create [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming)) calls to get some files and store them into the memory. When those files are loaded, a callback is executed (a callback is a function like the ```->``` symbol of CoffeeScript) and the rest of the game can be executed.
 
 [![CreateJS](/img/createjs.jpg)](http://www.createjs.com)
 

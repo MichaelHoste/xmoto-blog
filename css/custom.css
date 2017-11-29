@@ -19,6 +19,18 @@
   box-shadow: 0px 0px 5px #999999;
 }
 
+figure {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+pre code.language-text {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
 body.game {
   background: url('/img/background.png');
 }
@@ -103,3 +115,4 @@ body.game .hint {
   float:right;
   margin-right:100px;
 }
+

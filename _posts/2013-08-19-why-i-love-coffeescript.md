@@ -7,7 +7,7 @@ Like I said in my [previous post](/2013/08/18/choice-of-technology.html), I will
 
 But what exactly is CoffeeScript ?
 
-[![CoffeeScript](/img/coffeescript.png)]((http://coffeescript.org/)
+[![CoffeeScript](/img/coffeescript.png)](http://coffeescript.org/)
 
 ### "It's just JavaScript"
 

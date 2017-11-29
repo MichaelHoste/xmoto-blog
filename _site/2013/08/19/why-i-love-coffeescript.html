@@ -58,7 +58,7 @@
 
 <p>But what exactly is CoffeeScript ?</p>
 
-<p><a href="(http://coffeescript.org/"><img src="/img/coffeescript.png" alt="CoffeeScript"></a></p>
+<p><a href="http://coffeescript.org/"><img src="/img/coffeescript.png" alt="CoffeeScript"></a></p>
 
 <h3>&quot;It&#39;s just JavaScript&quot;</h3>
 
@@ -89,7 +89,7 @@
 <h4>Conditions</h4>
 
 <p>JavaScript</p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;;)&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="p">{</span>
@@ -97,41 +97,41 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>CoffeeScript</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="k">if</span> <span class="kc">true</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="k">if</span> <span class="kc">true</span>
   <span class="nx">alert</span> <span class="s">&#39;;)&#39;</span>
 <span class="k">else</span>
   <span class="nx">alert</span> <span class="s">&#39;:(&#39;</span>
 </code></pre></div>
 <p>You can also use one-line conditions</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nx">alert</span> <span class="s">&#39;;)&#39;</span> <span class="k">if</span> <span class="kc">true</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="nx">alert</span> <span class="s">&#39;;)&#39;</span> <span class="k">if</span> <span class="kc">true</span>
 </code></pre></div>
 <h4>Loops</h4>
 
 <p>JavaScript</p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;World&quot;</span><span class="p">];</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;World&quot;</span><span class="p">];</span>
 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>CoffeeScript</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="k">for</span> <span class="nx">word</span> <span class="k">in</span> <span class="p">[</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="s">&quot;World&quot;</span><span class="p">]</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="k">for</span> <span class="nx">word</span> <span class="k">in</span> <span class="p">[</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="s">&quot;World&quot;</span><span class="p">]</span>
   <span class="nx">alert</span> <span class="nx">word</span>
 </code></pre></div>
 <h4>Ruby-style string interpolation.</h4>
 
 <p>Javascript</p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">author</span><span class="p">,</span> <span class="nx">quote</span><span class="p">,</span> <span class="nx">sentence</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">author</span><span class="p">,</span> <span class="nx">quote</span><span class="p">,</span> <span class="nx">sentence</span><span class="p">;</span>
 <span class="nx">author</span> <span class="o">=</span> <span class="s2">&quot;Wittgenstein&quot;</span><span class="p">;</span>
 <span class="nx">quote</span> <span class="o">=</span> <span class="s2">&quot;A picture is a fact. -- &quot;</span> <span class="o">+</span> <span class="nx">author</span><span class="p">;</span>
 </code></pre></div>
 <p>CoffeeScript</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">author = </span><span class="s">&quot;Wittgenstein&quot;</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="nv">author = </span><span class="s">&quot;Wittgenstein&quot;</span>
 <span class="nv">quote  = </span><span class="s">&quot;A picture is a fact. -- </span><span class="si">#{</span> <span class="nx">author</span> <span class="si">}</span><span class="s">&quot;</span>
 </code></pre></div>
 <h4>Simple hash with a function in it</h4>
 
 <p>Javascript</p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">math</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">math</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">root</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">,</span>
   <span class="nx">square</span><span class="o">:</span> <span class="nx">square</span><span class="p">,</span>
   <span class="nx">cube</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
@@ -140,7 +140,7 @@
 <span class="p">};</span>
 </code></pre></div>
 <p>CoffeeScript</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">math =</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="nv">math =</span>
   <span class="nv">root: </span>  <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span>
   <span class="nv">square: </span><span class="nx">square</span>
   <span class="nv">cube: </span>  <span class="nf">(x) -&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">square</span> <span class="nx">x</span>
@@ -150,7 +150,7 @@
 <p>The most important advantage of CoffeeScript, for me, is the syntax of classes. JavaScript comes with prototypes that you can use to emulate classes. The bad part is that it increases the syntax burden.</p>
 
 <p>CoffeeScript provides a very clean class structure with inheritance, constructor, etc.</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="k">class</span> <span class="nx">Animal</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="k">class</span> <span class="nx">Animal</span>
   <span class="nv">constructor: </span><span class="nf">(@name) -&gt;</span>
 
   <span class="nv">move: </span><span class="nf">(meters) -&gt;</span>
@@ -181,7 +181,7 @@
 <h3>How to setup CoffeeScript</h3>
 
 <p>Since CoffeeScript compiles to JavaScript, you have to install a binary file on your system and execute a simple command to generate your <code>.js</code> file :</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">coffee -j bin/xmoto.js -wc src/*
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span></span>coffee -j bin/xmoto.js -wc src/*
 </code></pre></div>
 <p>It just says that it compiles each <code>.js</code> file from the <code>src/*</code> directory to <code>bin/xmoto.js</code> and join them in a single file (you can have multiple .coffee files).</p>
 

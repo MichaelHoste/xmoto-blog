@@ -95,34 +95,33 @@
 <p>In this chapter, we will only learn how to draw blocks (ground, walls, etc.) and sprite entities because they illustrate two different types of drawings (<code>createPattern()</code> and <code>drawImage()</code>) and the rest of the level (sky, edges, etc.) can also be created with these two methods. So the code will almost be the same.</p>
 
 <p>First thing to do is to create the canvas context:</p>
-<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nv">canvas = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#game&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="nv">canvas = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#game&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="nv">ctx    = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s">&#39;2d&#39;</span><span class="p">)</span>
 </code></pre></div>
 <p>where the HTML canvas looks like this:</p>
-<div class="highlight"><pre><code class="html language-html" data-lang="html"><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;game&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;game&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>The context variable is then used to execute any method related to Canvas 2D.</p>
 
 <h4>Blocks</h4>
 
-<div class="highlight"><pre><code class="coffeescript"><span class="lineno"> 1</span> <span class="nv">display: </span><span class="nf">(ctx) -&gt;</span>
-<span class="lineno"> 2</span>   <span class="k">for</span> <span class="nx">block</span> <span class="k">in</span> <span class="nx">@blocks</span>
-<span class="lineno"> 3</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
-<span class="lineno"> 4</span> 
-<span class="lineno"> 5</span>     <span class="k">for</span> <span class="nx">vertex</span><span class="p">,</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">block</span><span class="p">.</span><span class="nx">vertices</span>
-<span class="lineno"> 6</span>       <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span>
-<span class="lineno"> 7</span>         <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
-<span class="lineno"> 8</span>       <span class="k">else</span>
-<span class="lineno"> 9</span>         <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
-<span class="lineno">10</span> 
-<span class="lineno">11</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
-<span class="lineno">12</span> 
-<span class="lineno">13</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
-<span class="lineno">14</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">)</span>
-<span class="lineno">15</span>     <span class="nv">ctx.fillStyle = </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">createPattern</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">block</span><span class="p">.</span><span class="nx">usetexture</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span> <span class="s">&#39;repeat&#39;</span><span class="p">)</span>
-<span class="lineno">16</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
-<span class="lineno">17</span>     <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="lineno"> 1 </span><span class="nv">display: </span><span class="nf">(ctx) -&gt;</span>
+<span class="lineno"> 2 </span>  <span class="k">for</span> <span class="nx">block</span> <span class="k">in</span> <span class="nx">@blocks</span>
+<span class="lineno"> 3 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+<span class="lineno"> 4 </span>
+<span class="lineno"> 5 </span>    <span class="k">for</span> <span class="nx">vertex</span><span class="p">,</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">block</span><span class="p">.</span><span class="nx">vertices</span>
+<span class="lineno"> 6 </span>      <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="lineno"> 7 </span>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
+<span class="lineno"> 8 </span>      <span class="k">else</span>
+<span class="lineno"> 9 </span>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_x</span><span class="p">,</span> <span class="nx">vertex</span><span class="p">.</span><span class="nx">absolute_y</span><span class="p">)</span>
+<span class="lineno">10 </span>
+<span class="lineno">11 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
+<span class="lineno">12 </span>
+<span class="lineno">13 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+<span class="lineno">14 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">)</span>
+<span class="lineno">15 </span>    <span class="nv">ctx.fillStyle = </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">createPattern</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">block</span><span class="p">.</span><span class="nx">usetexture</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span> <span class="s">&#39;repeat&#39;</span><span class="p">)</span>
+<span class="lineno">16 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+<span class="lineno">17 </span>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span></code></pre></figure>
 
 <p>Explanations:</p>
 
@@ -144,28 +143,27 @@
 
 <h4>Entities / Sprites</h4>
 
-<div class="highlight"><pre><code class="coffeescript"><span class="lineno"> 1</span> <span class="nv">display_sprites: </span><span class="nf">(ctx) -&gt;</span>
-<span class="lineno"> 2</span>   <span class="k">for</span> <span class="nx">entity</span> <span class="k">in</span> <span class="nx">@list</span>
-<span class="lineno"> 3</span>     <span class="k">if</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">type_id</span> <span class="o">==</span> <span class="s">&#39;Sprite&#39;</span>
-<span class="lineno"> 4</span>       <span class="nv">texture_name = </span><span class="nx">@entity_texture_name</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span>
-<span class="lineno"> 5</span> 
-<span class="lineno"> 6</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-<span class="lineno"> 9</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="lineno">10</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">texture_name</span><span class="p">),</span>
-<span class="lineno">11</span>                     <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span>  <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
-<span class="lineno">12</span>                     <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span>
-<span class="lineno">13</span>                     <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-<span class="lineno">14</span>                     <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
-<span class="lineno">15</span> 
-<span class="lineno">16</span>       <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
-<span class="lineno">17</span> 
-<span class="lineno">18</span> <span class="nv">entity_texture_name: </span><span class="nf">(entity) -&gt;</span>
-<span class="lineno">19</span>   <span class="k">for</span> <span class="nx">param</span> <span class="k">in</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">params</span>
-<span class="lineno">20</span>     <span class="k">if</span> <span class="nx">param</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&#39;name&#39;</span>
-<span class="lineno">21</span>       <span class="k">return</span> <span class="nx">param</span><span class="p">.</span><span class="nx">value</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="lineno"> 1 </span><span class="nv">display_sprites: </span><span class="nf">(ctx) -&gt;</span>
+<span class="lineno"> 2 </span>  <span class="k">for</span> <span class="nx">entity</span> <span class="k">in</span> <span class="nx">@list</span>
+<span class="lineno"> 3 </span>    <span class="k">if</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">type_id</span> <span class="o">==</span> <span class="s">&#39;Sprite&#39;</span>
+<span class="lineno"> 4 </span>      <span class="nv">texture_name = </span><span class="nx">@entity_texture_name</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span>      <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+<span class="lineno"> 7 </span>
+<span class="lineno"> 8 </span>      <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+<span class="lineno"> 9 </span>      <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="lineno">10 </span>      <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">@assets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">texture_name</span><span class="p">),</span>
+<span class="lineno">11 </span>                    <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span>  <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
+<span class="lineno">12 </span>                    <span class="o">-</span><span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span>
+<span class="lineno">13 </span>                    <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+<span class="lineno">14 </span>                    <span class="nx">entity</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="lineno">15 </span>
+<span class="lineno">16 </span>      <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+<span class="lineno">17 </span>
+<span class="lineno">18 </span><span class="nv">entity_texture_name: </span><span class="nf">(entity) -&gt;</span>
+<span class="lineno">19 </span>  <span class="k">for</span> <span class="nx">param</span> <span class="k">in</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">params</span>
+<span class="lineno">20 </span>    <span class="k">if</span> <span class="nx">param</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&#39;name&#39;</span>
+<span class="lineno">21 </span>      <span class="k">return</span> <span class="nx">param</span><span class="p">.</span><span class="nx">value</span></code></pre></figure>
 
 <p>Explanations:</p>
 
