@@ -1,18 +1,16 @@
-HTML5 Muffin chocchip steps
+XMoto.io blog
 ============================
 
-Run bundle install
+`bundle install`
 
-	bundle install
+`jekyll build`
 
-Run jekyll
-
-  bundle exec foreman start
+`bundle exec foreman start`
 
 Use in development
 
-  http://127.0.0.1:4000
+`http://127.0.0.1:4000`
 
 Deploy on server (first configure server with nginx.conf)
 
-  ./deploy.sh
+`./deploy.sh`
