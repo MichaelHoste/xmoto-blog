@@ -6,6 +6,7 @@ gem 'nokogiri'
 gem 'foreman'
 gem 'redcarpet'
 gem 'pygments.rb'
+gem 'did_you_mean', '~>1.4.0'
 
 group :jekyll_plugins do
   gem 'jekyll-paginate'

@@ -8,7 +8,7 @@
     -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="author" href="/humans.txt">
-    <meta name="description" content="Description Goes Here">
+    <meta name="description" content="JavaScript Port of XMoto using Box2D">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/custom.css">
     <!--[if IE 7]>
@@ -22,7 +22,7 @@
 
     <meta property="og:url"         content="http://xmoto.io/" />
     <meta property="og:title"       content="XMoto.io" />
-    <meta property="og:description" content="HTML5 Version of XMoto" />
+    <meta property="og:description" content="JavaScript Port of XMoto using Box2D" />
     <meta property="og:image"       content="http://xmoto.io/image.png" />
 
     <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -126,38 +126,38 @@
 
 <p>The code where PreloadJS is used lies in the <code>Assets.coffee</code> file. Here is a simplified version of it :</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="lineno"> 1 </span><span class="k">class</span> <span class="nx">Assets</span>
-<span class="lineno"> 2 </span>
-<span class="lineno"> 3 </span>  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
-<span class="lineno"> 4 </span>    <span class="vi">@queue    = </span><span class="k">new</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">()</span>
-<span class="lineno"> 5 </span>    <span class="vi">@textures = </span><span class="p">[]</span>
-<span class="lineno"> 6 </span>
-<span class="lineno"> 7 </span>  <span class="nv">load: </span><span class="nf">(callback) -&gt;</span>
-<span class="lineno"> 8 </span>    <span class="nv">items = </span><span class="p">[]</span>
-<span class="lineno"> 9 </span>
-<span class="lineno">10 </span>    <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">@textures</span>
-<span class="lineno">11 </span>      <span class="nx">items</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span>
-<span class="lineno">12 </span>        <span class="nv">id: </span> <span class="nx">item</span>
-<span class="lineno">13 </span>        <span class="nv">src: </span><span class="s">&quot;data/Textures/Textures/</span><span class="si">#{</span><span class="nx">item</span><span class="si">}</span><span class="s">.jpg&quot;</span>
-<span class="lineno">14 </span>      <span class="p">)</span>
-<span class="lineno">15 </span>
-<span class="lineno">16 </span>    <span class="nv">items = </span><span class="nx">@remove_duplicate_textures</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span>
-<span class="lineno">17 </span>
-<span class="lineno">18 </span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s">&quot;complete&quot;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
-<span class="lineno">19 </span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">loadManifest</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span>
-<span class="lineno">20 </span>
-<span class="lineno">21 </span>  <span class="c1"># Get an asset by its name (&quot;id&quot;)</span>
-<span class="lineno">22 </span>  <span class="nv">get: </span><span class="nf">(name) -&gt;</span>
-<span class="lineno">23 </span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">getResult</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
-<span class="lineno">24 </span>
-<span class="lineno">25 </span>  <span class="nv">remove_duplicate_textures: </span><span class="nf">(array) -&gt;</span>
-<span class="lineno">26 </span>    <span class="nv">unique = </span><span class="p">[]</span>
-<span class="lineno">27 </span>    <span class="k">for</span> <span class="nx">image</span> <span class="k">in</span> <span class="nx">array</span>
-<span class="lineno">28 </span>      <span class="nv">found = </span><span class="kc">false</span>
-<span class="lineno">29 </span>      <span class="k">for</span> <span class="nx">unique_image</span> <span class="k">in</span> <span class="nx">unique</span>
-<span class="lineno">30 </span>        <span class="nv">found = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">image</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">unique_image</span><span class="p">.</span><span class="nx">id</span>
-<span class="lineno">31 </span>      <span class="nx">unique</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">found</span>
-<span class="lineno">32 </span>    <span class="k">return</span> <span class="nx">unique</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nx">Assets</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+<span class="linenos"> 4</span>    <span class="vi">@queue    = </span><span class="k">new</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">()</span>
+<span class="linenos"> 5</span>    <span class="vi">@textures = </span><span class="p">[]</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>  <span class="nv">load: </span><span class="nf">(callback) -&gt;</span>
+<span class="linenos"> 8</span>    <span class="nv">items = </span><span class="p">[]</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">@textures</span>
+<span class="linenos">11</span>      <span class="nx">items</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span>
+<span class="linenos">12</span>        <span class="nv">id: </span> <span class="nx">item</span>
+<span class="linenos">13</span>        <span class="nv">src: </span><span class="s">&quot;data/Textures/Textures/</span><span class="si">#{</span><span class="nx">item</span><span class="si">}</span><span class="s">.jpg&quot;</span>
+<span class="linenos">14</span>      <span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>    <span class="nv">items = </span><span class="nx">@remove_duplicate_textures</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s">&quot;complete&quot;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">loadManifest</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>  <span class="c1"># Get an asset by its name (&quot;id&quot;)</span>
+<span class="linenos">22</span>  <span class="nv">get: </span><span class="nf">(name) -&gt;</span>
+<span class="linenos">23</span>    <span class="nx">@queue</span><span class="p">.</span><span class="nx">getResult</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>  <span class="nv">remove_duplicate_textures: </span><span class="nf">(array) -&gt;</span>
+<span class="linenos">26</span>    <span class="nv">unique = </span><span class="p">[]</span>
+<span class="linenos">27</span>    <span class="k">for</span> <span class="nx">image</span> <span class="k">in</span> <span class="nx">array</span>
+<span class="linenos">28</span>      <span class="nv">found = </span><span class="kc">false</span>
+<span class="linenos">29</span>      <span class="k">for</span> <span class="nx">unique_image</span> <span class="k">in</span> <span class="nx">unique</span>
+<span class="linenos">30</span>        <span class="nv">found = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">image</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">unique_image</span><span class="p">.</span><span class="nx">id</span>
+<span class="linenos">31</span>      <span class="nx">unique</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">found</span>
+<span class="linenos">32</span>    <span class="k">return</span> <span class="nx">unique</span></code></pre></figure>
 
 <p>Some tips to understand this code :</p>
 
@@ -220,7 +220,7 @@
 
     <footer>
       <div class="container">
-        <a href="mailto:michael.hoste@gmail.com">Michaël Hoste</a> | <a href="http://80limit.com">80LIMIT</a> | Powered by <a href="http://richbray.me/frap/">Frappuccino</a>
+        <a href="mailto:michael@80limit.com">Michaël Hoste</a> | <a href="http://80limit.com">80LIMIT</a> | Powered by <a href="http://richbray.me/frap/">Frappuccino</a>
       </div>
     </footer>
 
